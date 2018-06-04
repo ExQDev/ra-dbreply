@@ -1,0 +1,19 @@
+{
+    "restartable": "rs",
+    "ignore": [
+      ".git",
+      "node_modules/**/node_modules",
+      "dist"
+    ],
+    "verbose": true,
+    "execMap": {
+      "js": "npm run deploy-dev"
+    },
+    "events": {
+      "restart": "echo 'Re-deploy CF locally. Please wait...'"
+    },
+    "watch": [
+        "../ra-cf-gitlab-to-spreadsheet"
+    ],
+    "ext": "js,json"
+  }

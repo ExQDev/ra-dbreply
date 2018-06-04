@@ -1,0 +1,33 @@
+{
+  "name": "test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "babel-build": "npm run rimraf && babel ./ --out-dir dist/ --ignore ./node_modules,./npm-debug.log --copy-files",
+    "deploy": "npm run rimraf && npm run babel-build && node dist/index.js && gcloud beta functions deploy helloWorld --source=dist --trigger-http --timeout=120s --memory=2048",
+    "deploy-dev": "npm run rimraf && npm run babel-build && cd dist && functions deploy helloWorld --local-path=dist --trigger-http --timeout=120s",
+    "delete": "gcloud beta functions delete helloWorld",
+    "rimraf": "rimraf dist",
+    "dev": "functions start && nodemon",
+    "local": "npm run babel-build && node ./dist/local_run.js",
+    "lint": "standard --verbose --fix | snazzy && prettier-standard '*.js'"
+  },
+  "author": "RemoteAssembly LLC",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-plugin-syntax-async-functions": "^6.1.4",
+    "babel-plugin-transform-regenerator": "^6.1.4",
+    "babel-polyfill": "^6.1.4",
+    "rimraf": "^2.6.2",
+    "nodemon": "^1.17.3",
+    "prettier-standard": "^8.0.1",
+    "standard": "^11.0.1",
+    "snazzy": "^7.1.1"
+  },
+  "dependencies": {
+    "lodash": "^4.17.4"
+  }
+}

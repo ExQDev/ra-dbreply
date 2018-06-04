@@ -1,0 +1,6 @@
+/dist
+/npm-debug.log
+node_modules
+.env
+package-lock.json
+/.idea
