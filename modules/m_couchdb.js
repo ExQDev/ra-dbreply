@@ -6,7 +6,7 @@ export default class M_CouchDB extends udbI {   // eslint-disable-line
   constructor (robj) {
     super()
     this.robj = robj
-    console.log('>>CouchDB INITIATED')
+    console.log('>>CouchDB INITIALIZED')
   }
 
   connect (host, port) {
