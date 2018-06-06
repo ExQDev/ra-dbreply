@@ -1,6 +1,6 @@
 import mongodb from 'mongodb'
 import udbI from './../interface/unidb_interface'
-import fail from '../../functions/fail'
+import fail from './../functions/fail'
 import Promise from 'bluebird'
 
 const mongo = Promise.promisifyAll(mongodb.MongoClient)
@@ -36,7 +36,14 @@ export default class M_MongoDB extends udbI {       // eslint-disable-line
   async insert (collection, obj) {
     console.log('>>MONGO INSERTION')
     const _client1 = await mongo.connectAsync(this.url).catch(err => fail(err, this.robj))
-    const arr = await _client1.db(this.dbname).collection(collection)
+    let arr
+    try{
+      arr = await _client1.db(this.dbname).collection(collection)
+    }
+    catch(err)
+    {
+      fail(err, this.robj)
+    }
     let _arr = Promise.promisifyAll(arr)
     await _arr.insertOneAsync(obj).catch(err => fail(err, this.robj))
   }

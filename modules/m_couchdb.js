@@ -1,6 +1,6 @@
 import udbI from './../interface/unidb_interface'
-import AsyncDB from '../../functions/AsyncDB'
-import fail from '../../functions/fail'
+import AsyncDB from './../functions/AsyncDB'
+import fail from './../functions/fail'
 
 export default class M_CouchDB extends udbI {   // eslint-disable-line
   constructor (robj) {
@@ -37,6 +37,6 @@ export default class M_CouchDB extends udbI {   // eslint-disable-line
 
   async insert (collection, obj) {
     console.log('>>CDB INSERTION')
-    await this.db.insertAsync(obj).catch(err => fail(err, this.robj))
+    return this.db.insertAsync(obj).catch(err => fail(err, this.robj))
   }
 }

@@ -13,41 +13,130 @@ yarn global add @google-cloud/functions-emulator
 
 2. Clone project to your "cloudFunctions" directory
 
+3. Run in your project directory
+
+        npm i
+    >i = install, this will install all dependencies
+4. Then
+
+        npm run deploy
+    >*(you need to have your own google cloud developer account. And put your cloud functions client secret to 'config/congfig.js')*
+    
+    >*(and facebook application registration, fields for fbAppId, fbAppSecret, and fbCallback in 'config/congfig.js')*
+
+    **OR**
+
+        functions start &&
+        npm run deploy-dev
+
+    **OR**
+
+        npm run dev
+
+5. Enjoy!
+
+
 ## Usage
 
-1. Read info about google cloud functions
-Here for example : https://cloud.google.com/functions/docs/writing/
+> NOW SUPPORTS: mongodb, couchdb
 
-2. Write function according to rules.
-Set all params you need in .json file. For example GOOGLE_APPLICATION_CREDENTIALS, DB_HOST,CLOUD_BUCKET or others.
+1. Basic usage
 
-1. In your cloudFunctions directory run dev script. It will starts cloud function emulator, deploy CF locally and re-deploy when you save the changes.
+To replicate(clone, copy) your one database to another, you have to provide this cloud function your credentials for these databases.
 
-```
-npm run dev
-```
-4. For testing and debug you can create additional script for local run (it useful if you testing some external API). If you have local.js script you can rebuild and run your CF with one command 
+The sample *body* of **POST** request:
 
 ```
-npm run local
+    {
+        "db1":
+        {
+            "host":"127.0.0.1",
+            "port":"27017",
+            "type":"mongo",
+            "db":"test",
+            "collection":"collection"
+        },
+        "db2":
+        {
+            "host":"127.0.0.1",
+            "port":"5984",
+            "type":"couchdb",
+            "db":"test",
+            "collection":""
+        }
+    }
+```
+> This snippet replicates mongo database to couchdb database
+
+The sample response for this request is:
+
+```
+{
+    "ok": true,
+    "success": true,
+    "result": "ok",
+    "reason": "collections identical"
+}
 ```
 
-5. When you make sure that your CF works well, you can deploy it to Google Cloud Platform:
+or an error:
 
-> before that - in *package.json* change **'helloWorld'** to your function name, in these lines:
-> ```
->    "deploy": "npm run rimraf && npm run babel-build && node dist/index.js && gcloud beta functions deploy helloWorld --source=dist --trigger-http --timeout=120s --memory=2048",
->    "deploy-dev": "npm run rimraf && npm run babel-build && cd dist && functions deploy helloWorld --local-path=dist --trigger-http --timeout=120s",
->    "delete": "gcloud beta functions delete helloWorld",
-> ```
-
-It should also match a function name exported in index.js file. After that:
 ```
-npm install
-npm run deploy
+{
+    "result": "fail",
+    "success": false,
+    "ok": false,
+    "name": "Error",
+    "error": "conflict",
+    "reason": "Document update conflict."
+}
 ```
 
-> make sure that you add your credentials into gcloud console for this step
+and error for backwards:
+
+```
+{
+    "result": "fail",
+    "success": false,
+    "ok": false,
+    "name": "MongoError",
+    "error": "MongoError",
+    "reason": "E11000 duplicate key error collection: test.collection index: _id_ dup key: { : \"id\" }"
+}
+```
+
+What means that target table with same values (or one same value) already exists.
+
+2. Development
+
+You can also add your own database type to support it.
+
+First, goto `modules`, and create your own `module_name.js` file.
+
+Then, goto `interface` folder, open `unidb_interface.js` and look at its structur.
+Your database driver must be derived from this interface.
+
+For more information look at existent db drivers at `modules`, and make smth yours like them.
+
+Last, open `config.js`, and append array of modules with your own:
+
+append head with `import yourModuleName from './modules/your_module'`
+
+and `modules` with:
+
+```
+{
+    name: 'your_module_name',
+    type: 'your_db_type',
+    module: yourModuleName  // (Imported as told above)
+}
+```
+
+And that's all!
+
+Be sure to set `your_db_type` in request for cloud function!
+
+Enjoy!:)
 
 ## Dependencies
 Use [these instructions](https://cloud.google.com/functions/docs/deploying/) to setup global dependencies.
