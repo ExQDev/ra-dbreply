@@ -37,11 +37,9 @@ export default class M_MongoDB extends udbI {       // eslint-disable-line
     console.log('>>MONGO INSERTION')
     const _client1 = await mongo.connectAsync(this.url).catch(err => fail(err, this.robj))
     let arr
-    try{
+    try {
       arr = await _client1.db(this.dbname).collection(collection)
-    }
-    catch(err)
-    {
+    } catch (err) {
       fail(err, this.robj)
     }
     let _arr = Promise.promisifyAll(arr)
