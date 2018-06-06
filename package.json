@@ -1,13 +1,13 @@
 {
-  "name": "test",
+  "name": "dbreply",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "babel-build": "npm run rimraf && babel ./ --out-dir dist/ --ignore ./node_modules,./npm-debug.log --copy-files",
-    "deploy": "npm run rimraf && npm run babel-build && node dist/index.js && gcloud beta functions deploy helloWorld --source=dist --trigger-http --timeout=120s --memory=2048",
-    "deploy-dev": "npm run rimraf && npm run babel-build && cd dist && functions deploy helloWorld --local-path=dist --trigger-http --timeout=120s",
-    "delete": "gcloud beta functions delete helloWorld",
+    "deploy": "npm run rimraf && npm run babel-build && node dist/index.js && gcloud beta functions deploy api --source=dist --trigger-http --timeout=120s --memory=2048",
+    "deploy-dev": "npm run rimraf && npm run babel-build && cd dist && functions deploy api --local-path=dist --trigger-http --timeout=120s",
+    "delete": "gcloud beta functions delete api",
     "rimraf": "rimraf dist",
     "dev": "functions start && nodemon",
     "local": "npm run babel-build && node ./dist/local_run.js",
@@ -28,6 +28,14 @@
     "snazzy": "^7.1.1"
   },
   "dependencies": {
-    "lodash": "^4.17.4"
+    "bluebird": "^3.5.1",
+    "bson-ext": "^2.0.0",
+    "dbconnect": "^0.3.2",
+    "kerberos": "0.0.24",
+    "lodash": "^4.17.4",
+    "mongodb": "^3.0.10",
+    "mongoose": "^5.1.4",
+    "nano": "^6.4.4",
+    "pg-promise": "^8.4.4"
   }
 }
