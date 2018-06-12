@@ -41,7 +41,9 @@ export default class M_PostgreDB extends udbi {   // eslint-disable-line
     let colnames = cols.map(function (element) {
       return element.column_name
     })
-    let keys = clearObject(obj, colnames)
+    let keys = clearObject(obj, colnames).map(function (item) {
+      return `"${item}"`
+    })
 
     console.log(obj)
     console.log(keys)

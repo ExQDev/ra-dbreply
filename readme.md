@@ -40,8 +40,6 @@ yarn global add @google-cloud/functions-emulator
 > NOW SUPPORTS: mongodb, couchdb, mysql, postgre
 
 >> NOTE: You need to predefine table structure for SQL databases at server. Only predefined columns will be filled. Maybe later it will automatically create new columns and tables, but for now you must do it yourself.
->>> [Postgre] Column names must have lowercased names. Or both with camelcase, if you have camelcased columns.
-Later this will be fixed. Maybe.
 
 1. Basic usage
 
