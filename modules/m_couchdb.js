@@ -9,7 +9,7 @@ export default class M_CouchDB extends udbI {   // eslint-disable-line
     console.log('>>CouchDB INITIATED')
   }
 
-  connect (host, port) {
+  async connect (host, port) {
     console.log('>>INIT NANO')
     this.nano = require('nano')(`http://${host}:${port}/`)
     console.log('>>NANO READY')
@@ -27,7 +27,7 @@ export default class M_CouchDB extends udbI {   // eslint-disable-line
     let _col = await this.db.fetchAsync({}).catch(err => fail(err, this.robj))
     if (_col) {
       const _map = _col.rows.map(function (item) {
-        item.doc._rev = undefined
+        delete item.doc._rev
         return item.doc
       })
       return _map

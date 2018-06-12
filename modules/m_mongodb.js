@@ -12,7 +12,7 @@ export default class M_MongoDB extends udbI {       // eslint-disable-line
     console.log('>>MongoDB INITIALIZED')
   }
 
-  connect (host, port) {
+  async connect (host, port) {
     console.log('>>INIT mongo URL')
     this.url = 'mongodb://' + host + ':' + port + '/'
     console.log(`>>URL [${this.url}] READY`)
@@ -43,6 +43,7 @@ export default class M_MongoDB extends udbI {       // eslint-disable-line
       fail(err, this.robj)
     }
     let _arr = Promise.promisifyAll(arr)
+    if (obj.id && !obj._id) { obj._id = obj.id }
     await _arr.insertOneAsync(obj).catch(err => fail(err, this.robj))
   }
 }

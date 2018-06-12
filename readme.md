@@ -20,9 +20,8 @@ yarn global add @google-cloud/functions-emulator
 4. Then
 
         npm run deploy
-    >*(you need to have your own google cloud developer account. And put your cloud functions client secret to 'config/congfig.js')*
+    >*(you need to have your own google cloud developer account.)*
     
-    >*(and facebook application registration, fields for fbAppId, fbAppSecret, and fbCallback in 'config/congfig.js')*
 
     **OR**
 
@@ -38,7 +37,11 @@ yarn global add @google-cloud/functions-emulator
 
 ## Usage
 
-> NOW SUPPORTS: mongodb, couchdb
+> NOW SUPPORTS: mongodb, couchdb, mysql, postgre
+
+>> NOTE: You need to predefine table structure for SQL databases at server. Only predefined columns will be filled. Maybe later it will automatically create new columns and tables, but for now you must do it yourself.
+>>> [Postgre] Column names must have lowercased names. Or both with camelcase, if you have camelcased columns.
+Later this will be fixed. Maybe.
 
 1. Basic usage
 
@@ -66,6 +69,32 @@ The sample *body* of **POST** request:
         }
     }
 ```
+
+OR
+
+```
+    "db2":
+	{
+		"host":"127.0.0.1",
+		"port":"5432",
+		"type":"postgre",
+		"uname":"your_user_name",
+		"password":"your_password",
+		"db":"dbname",
+		"collection":"collection"
+	},
+    "db1":
+    {
+        "host":"localhost",
+		"port":"3306",
+		"type":"mysql",
+		"uname":"your_username",
+		"password":"your_password",
+		"db":"dbname",
+		"collection":"collection"
+    }
+```
+
 > This snippet replicates mongo database to couchdb database
 
 The sample response for this request is:
@@ -75,7 +104,7 @@ The sample response for this request is:
     "ok": true,
     "success": true,
     "result": "ok",
-    "reason": "collections identical"
+    "reason": "successfully replicated"
 }
 ```
 
