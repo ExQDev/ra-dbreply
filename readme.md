@@ -117,6 +117,8 @@ OR
 
 > This snippet replicates mongo database to couchdb database **OR** table from postgresql database to non-existent(or existent) table in mysql database.
 
+> You can also try replicating data from no-sql databases to sql databases, using schema. And back w/o it.
+
 > If database table not exists you need to provide its **schema** like it shown above. You can use types `[int, float, double, text, varchar, datetime, bool]` which are listed in `interface/typedb.json` and provide same types for both of these databases. You can add yours.
     
 - The `engine` field is not required for postgre, but is required for mysql.
