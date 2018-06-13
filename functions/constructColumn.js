@@ -12,7 +12,7 @@ export default function constructColumn(schema, driver){
         if(driver === 'postgre')
             colname = `"${col}"`
         
-        let _out = `${colname}   ${typedb[driver][schema[col].type]}${schema[col].len !== undefined?'('+schema[col].len+')':''}   ${(schema[col].addition !== undefined)?schema[col].addition:''} `
+        let _out = `${colname}   ${typedb[driver][schema[col].type]}${schema[col].size !== undefined?'('+schema[col].size+')':''}   ${(schema[col].addition !== undefined)?schema[col].addition:''} `
         if(driver === 'mysql')
         {
             if(schema.primary === col)

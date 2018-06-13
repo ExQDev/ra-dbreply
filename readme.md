@@ -98,7 +98,7 @@ OR
 			"skey":
 			{
 				"type": "varchar",
-                "len": "15",
+                "size": "15",
                 "addition": "NOT NULL"
 			},
 			"svalue":
@@ -123,7 +123,7 @@ OR
 - Primary for camelCase columns for **postgre** need to be quoted for each identificator.
 - Type is required for every column. If it has not a type, column won't be created.
 - Additions for each column are specific for every database keywords, like `AUTO_INCREMENT` in mysql, and are placed after type of column.
-- `len` is a length(size) of column values, and `{ "type" : "varchar", "len":"30" }` represents like `VARCHAR(30)`
+- `size` is a length(size) of column values, and `{ "type" : "varchar", "size":"30" }` represents like `VARCHAR(30)`
 
 > NOTE: Non-existent columns won`t be added if you replicate table or objects with undefined fields in target table!
 
