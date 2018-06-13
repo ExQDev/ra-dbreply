@@ -23,7 +23,7 @@ export default class M_MongoDB extends udbI {       // eslint-disable-line
     this.dbname = dbname
   }
 
-  async checkTable(tname){
+  async checkTable (tname) {
     return true
   }
 

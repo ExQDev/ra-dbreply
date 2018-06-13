@@ -22,7 +22,7 @@ export default class M_CouchDB extends udbI {   // eslint-disable-line
     console.log('>>DONE')
   }
 
-  async checkTable(tname){
+  async checkTable (tname) {
     return true
   }
 
