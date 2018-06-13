@@ -1,0 +1,22 @@
+{
+    "mysql":
+    {
+        "text": "text",
+        "varchar": "varchar",
+        "int": "integer",
+        "float": "float",
+        "double": "double",
+        "bool": "bool",
+        "datetime": "datetime" 
+    },
+    "postgre":
+    {
+        "text": "text",
+        "varchar": "varchar",
+        "int": "integer",
+        "float": "real",
+        "double": "double",
+        "bool": "boolean",
+        "datetime": "date"
+    }
+}

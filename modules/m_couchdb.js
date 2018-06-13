@@ -22,6 +22,10 @@ export default class M_CouchDB extends udbI {   // eslint-disable-line
     console.log('>>DONE')
   }
 
+  async checkTable(tname){
+    return true
+  }
+
   async collection () {
     console.log('>>CDB GET COLLECTION')
     let _col = await this.db.fetchAsync({}).catch(err => fail(err, this.robj))

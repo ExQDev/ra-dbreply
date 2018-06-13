@@ -3,6 +3,7 @@ import mysql from 'mysql2'
 import Promise from 'bluebird'
 import fail from '../functions/fail'
 import clearObject from '../functions/clearObject'
+import constructColumn from '../functions/constructColumn';
 
 export default class M_MySQLDB extends udbi {   // eslint-disable-line
   constructor (robj) {
@@ -32,6 +33,26 @@ export default class M_MySQLDB extends udbi {   // eslint-disable-line
     console.log(`>>USE [${dbname}]`)
     this.dbname = dbname
     console.log('>>mysql READY')
+  }
+
+  async checkTable(tname){
+    console.log(`mysql check table [${tname}]`)
+    let checkQuery = `SELECT 1 FROM information_schema.tables WHERE table_name = '${tname}';`
+    console.log(checkQuery)
+    let checkResp = await this.mysql.queryAsync(checkQuery).catch(err => fail(err, this.robj))
+    console.log(checkResp)
+    return checkResp.length > 0
+  }
+
+  async makeTable(tname, schema){
+    console.log(`mysql creation of table[${tname}]`)
+    let tcols = constructColumn(schema, 'mysql')
+    let tquery = `CREATE TABLE ${this.dbname}.${tname}(${tcols}) ENGINE=${schema.engine};`
+    console.log(tcols)
+    console.log(tquery)
+    let _table = await this.mysql.queryAsync(tquery).catch(err => fail(err, this.robj))
+    console.log(_table)
+    return _table
   }
 
   async collection (name) {

@@ -1,7 +1,8 @@
 import udbi from '../interface/unidb_interface'
-import pgp from 'pg-promise'
+import pgp, { TableName } from 'pg-promise'
 import clearObject from '../functions/clearObject'
 import fail from '../functions/fail'
+import constructColumn from '../functions/constructColumn';
 
 export default class M_PostgreDB extends udbi {   // eslint-disable-line
   constructor (robj) {
@@ -24,6 +25,26 @@ export default class M_PostgreDB extends udbi {   // eslint-disable-line
     this.dbname = dbname
     this.db = pgp()(`postgres://${this.uname}:${this.pass}@${this.host}:${this.port}/${this.dbname}`)
     console.log('>>pgp READY')
+  }
+
+  async checkTable(tname){
+    let checkQuery = `SELECT EXISTS (SELECT 1 FROM information_schema.tables 
+      WHERE  table_name = '${tname}');`
+    console.log(checkQuery)
+    let checkResp = await this.db.query(checkQuery).catch(err => fail(err, this.robj))
+    console.log(checkResp)
+    return checkResp[0].exists
+  }
+
+  async makeTable(tname, schema){
+    console.log(`pgp creation of table[${tname}]`)
+    let tcols = constructColumn(schema, 'postgre')
+    let tquery = `CREATE TABLE "${tname}"(${tcols}, PRIMARY KEY (${schema.primary}));`
+    console.log(tcols)
+    console.log(tquery)
+    let _table = await this.db.query(tquery).catch(err => fail(err, this.robj))
+    console.log(_table)
+    return _table
   }
 
   async collection (name) {

@@ -23,6 +23,10 @@ export default class M_MongoDB extends udbI {       // eslint-disable-line
     this.dbname = dbname
   }
 
+  async checkTable(tname){
+    return true
+  }
+
   async collection (name) {
     console.log('>>MONGO GET COLLECTION')
     let _out

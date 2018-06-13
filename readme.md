@@ -39,8 +39,6 @@ yarn global add @google-cloud/functions-emulator
 
 > NOW SUPPORTS: mongodb, couchdb, mysql, postgre
 
->> NOTE: You need to predefine table structure for SQL databases at server. Only predefined columns will be filled. Maybe later it will automatically create new columns and tables, but for now you must do it yourself.
-
 1. Basic usage
 
 To replicate(clone, copy) your one database to another, you have to provide this cloud function your credentials for these databases.
@@ -71,7 +69,7 @@ The sample *body* of **POST** request:
 OR
 
 ```
-    "db2":
+    "db1":
 	{
 		"host":"127.0.0.1",
 		"port":"5432",
@@ -81,7 +79,7 @@ OR
 		"db":"dbname",
 		"collection":"collection"
 	},
-    "db1":
+    "db2":
     {
         "host":"localhost",
 		"port":"3306",
@@ -89,11 +87,46 @@ OR
 		"uname":"your_username",
 		"password":"your_password",
 		"db":"dbname",
-		"collection":"collection"
+		"collection":"collection",
+        "schema":
+		{
+			"id": 
+			{
+				"type": "int",
+				"addition": "UNSIGNED AUTO_INCREMENT"
+			},
+			"skey":
+			{
+				"type": "varchar",
+                "len": "15",
+                "addition": "NOT NULL"
+			},
+			"svalue":
+			{
+				"type": "text"
+			},
+			"createdAt":
+			{
+				"type": "datetime"
+			},
+			"primary": "id",
+			"engine": "InnoDB"
+		}
     }
 ```
 
-> This snippet replicates mongo database to couchdb database
+> This snippet replicates mongo database to couchdb database **OR** table from postgresql database to non-existent(or existent) table in mysql database.
+
+> If database table not exists you need to provide its **schema** like it shown above. You can use types `[int, float, double, text, varchar, datetime, bool]` which are listed in `interface/typedb.json` and provide same types for both of these databases. You can add yours.
+    
+- The `engine` field is not required for postgre, but is required for mysql.
+- Primary for camelCase columns for **postgre** need to be quoted for each identificator.
+- Type is required for every column. If it has not a type, column won't be created.
+- Additions for each column are specific for every database keywords, like `AUTO_INCREMENT` in mysql, and are placed after type of column.
+- `len` is a length(size) of column values, and `{ "type" : "varchar", "len":"30" }` represents like `VARCHAR(30)`
+
+> NOTE: Non-existent columns won`t be added if you replicate table or objects with undefined fields in target table!
+
 
 The sample response for this request is:
 

@@ -11,6 +11,8 @@ export default async function migrate (db1, db2, credentials, robj) {
   db2.use(cdb2.db)
   console.log(`>>COPYING from [${cdb1.type}] to [${cdb2.type}]`)
   const _initCollection = await db1.collection(cdb1.collection).catch(err => fail(err, robj))
+  if(!(await db2.checkTable(cdb2.collection)))
+    await db2.makeTable(cdb2.collection, cdb2.schema)
   const _prefinalCollection = (await db2.collection(cdb2.collection))
   for (let _obj of _initCollection) {
     await db2.insert(cdb2.collection, _obj).catch(err => fail(err, robj))
