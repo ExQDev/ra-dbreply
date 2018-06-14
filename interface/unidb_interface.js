@@ -1,7 +1,9 @@
 export default class UDBInterface {
-  connect (host, port, uname, pass) {}
+  async connect (host, port, uname, pass) {}
   use (dbname) {}
   async insert (obj) {}
+  async checkTable (tname) {}
+  async makeTable (tname) {}
   delete (obj) {}
   async collection (name) {}
 }

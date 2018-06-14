@@ -29,13 +29,13 @@
   },
   "dependencies": {
     "bluebird": "^3.5.1",
-    "bson-ext": "^2.0.0",
-    "dbconnect": "^0.3.2",
-    "kerberos": "0.0.24",
-    "lodash": "^4.17.4",
     "mongodb": "^3.0.10",
-    "mongoose": "^5.1.4",
+    "mysql": "^2.15.0",
     "nano": "^6.4.4",
-    "pg-promise": "^8.4.4"
+    "pg": "^6.4.1",
+    "pg-hstore": "^2.3.2",
+    "pg-promise": "^8.4.4",
+    "sequelize": "^4.37.10",
+    "sequelize-auto": "^0.4.29"
   }
 }
