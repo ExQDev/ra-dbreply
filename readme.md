@@ -39,7 +39,7 @@ yarn global add @google-cloud/functions-emulator
 
 > NOW SUPPORTS: mongodb, couchdb, mysql, postgre
 
-1. Basic usage
+1. **Basic usage**
 
 To replicate(clone, copy) your one database to another, you have to provide this cloud function your credentials for these databases.
 
@@ -171,7 +171,8 @@ What means that target table with same values (or one same value) already exists
 
 
 
-2. Development
+
+2. **Development**
 
 You can also add your own database type to support it.
 
