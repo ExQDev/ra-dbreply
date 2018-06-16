@@ -169,22 +169,24 @@ and error for backwards:
 
 What means that target table with same values (or one same value) already exists.
 
+
+
 2. Development
 
 You can also add your own database type to support it.
 
 First, goto `modules`, and create your own `module_name.js` file.
 
-Then, goto `interface` folder, open `unidb_interface.js` and look at its structur.
+Then, goto `interface` folder, open `unidb_interface.js` and look at its structure.
 Your database driver must be derived from this interface.
 
 For more information look at existent db drivers at `modules`, and make smth yours like them.
 
-Last, open `config.js`, and append array of modules with your own:
+At last, open `config.js`, and append array of modules with your own:
 
-append head with `import yourModuleName from './modules/your_module'`
+1. append head with `import yourModuleName from './modules/your_module'`
 
-and `modules` with:
+2. and `modules` with:
 
 ```
 {
