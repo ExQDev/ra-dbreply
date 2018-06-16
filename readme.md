@@ -47,7 +47,7 @@ The sample *body* of **POST** request:
 
 ```
     {
-        "db1":
+        "from":
         {
             "host":"127.0.0.1",
             "port":"27017",
@@ -55,7 +55,7 @@ The sample *body* of **POST** request:
             "db":"test",
             "collection":"collection"
         },
-        "db2":
+        "to":
         {
             "host":"127.0.0.1",
             "port":"5984",
@@ -69,7 +69,7 @@ The sample *body* of **POST** request:
 OR
 
 ```
-    "db1":
+    "from":
 	{
 		"host":"127.0.0.1",
 		"port":"5432",
@@ -79,7 +79,7 @@ OR
 		"db":"dbname",
 		"collection":"collection"
 	},
-    "db2":
+    "to":
     {
         "host":"localhost",
 		"port":"3306",
